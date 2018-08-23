@@ -14,8 +14,8 @@ We highly recommend that you take a few dedicated minutes to read this README in
 
 # Introduction
 
-Imagine you work for a company that has a webserver running. It is highly important to the companies success that the webserver is highly available. Unfortunately, the company currently has not data about the availability of the webserver. To fix this, they have tasked an engineer to build a pipeline that processes the logs and stores the results in a database. Data scientists can then query the database to analyze the availability of the system. The engineer came up with the following solution:
-- The logs are ingested into a RabbitMQ queue (for the purpose of this challenge, this done via reading a given log file with a Python script - in reality, the logs would be sent straight from the webserver)
+Imagine you work for a company that has a webserver running. It is highly important to the companies success that the webserver is highly available to ensure users have a great experience. Unfortunately, the company currently does not have data about the availability of the webserver. To fix this, they have tasked an engineer to build a pipeline that processes the logs of the webserver and stores the results in a database. Data scientists can then query the database to analyze the availability of the system. The engineer came up with the following solution:
+- The logs are ingested into a RabbitMQ queue (for the purpose of this challenge, this is done via reading a given log file with a Python script - in reality, the logs would be sent straight from the webserver)
 - A python script reads the messages from the RabbitMQ queue, processes it and stores the results in a PostgreSQL database
 - An application server built in Flask queries the database to calculate the percentage of GET requests that have failed
 - The application server can be accessed via an nginx webserver
@@ -24,16 +24,13 @@ All of this is developed with the Docker Engine, and put together with Docker Co
 
 Unfortunately, the developer is new to many of these tools, and is having a number of issues. The developer needs your help debugging the system and getting it to work properly.
 
+Additionally, the data scientists requested an additional feature to be extracted from the weblogs - it is your job to add this once you have debugged the system.
+
 # Puzzle details
 
 The codebase included in this repo is nearly functional, but has a few bugs that are preventing it from working properly. The first goal of this puzzle is to find these bugs and fix them. To do this, you'll have to familiarize yourself with the various technologies (Docker, RabbitMQ, nginx, Flask, and Postgres). You definitely don't have to be an expert on these, but you should know them well enough to understand what the problem is.
 
-Assuming you have the Docker Engine and Docker Compose already installed, the developer said that the steps for running the system is to open a terminal, `cd` into this repo, and then enter these two commands:
-
-    docker-compose up -d db
-    docker-compose run --rm flaskapp /bin/bash -c "cd /opt/services/flaskapp/src && python -c  'import database; database.init_db()'"
-
-This "bootstraps" the PostgreSQL database with the correct tables. After that you can run the whole system with:
+Assuming you have the Docker Engine and Docker Compose already installed, the developer said that the steps for running the system is to open a terminal, `cd` into this repo, and then enter the command:
 
     docker-compose up -d
 
@@ -46,9 +43,9 @@ A typical log entry looks like
 
     local - - [24/Oct/1994:13:43:13 -0600] "GET index.html HTTP/1.0" 200 3185
 
-More details about the weblog can be found [here.](http://ita.ee.lbl.gov/html/contrib/Calgary-HTTP.html)
+More details about the weblogs can be found [here.](http://ita.ee.lbl.gov/html/contrib/Calgary-HTTP.html)
 
-When processing these logs, we extract wether it was a GET request and we use the HTTP staus code to determine whether the request was succesful. Look at the [List of HTTP status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) for an overview over all status codes.
+When processing these logs, we extract whether it was a GET request and we use the HTTP staus code to determine whether the request was succesful. Look at the [List of HTTP status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) for an overview over all status codes.
 For the purpose of this challenge, a request is considered succesful if it returns a status code of the form 2XX.
 # Assignments
 
@@ -61,13 +58,12 @@ The challenge consists of the following parts:
 Once you've corrected the bugs and have the basic features working, commit the functional codebase to a new repo following the instructions below. As you debug the system, you should keep track of your thought process and what steps you took to solve the puzzle.
 
 ## Instructions to submit your solution
-* Don't schedule your interview until you've worked on the puzzle 
 * To submit your entry please use the link you received in your systems puzzle invitation
 * You will only be able to submit through the link one time
 * For security, we will not open solutions submitted via files
 * Use the submission box to enter the link to your GitHub repo or Bitbucket ONLY
 * Link to the specific repo for this project, not your general profile
-* Put any comments in the README inside your project repo
+* Put any comments in the README inside your project repo - However do **not** explain how you solved the puzzle in your README.md
 
 # FAQ
 
