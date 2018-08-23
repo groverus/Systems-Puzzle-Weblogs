@@ -14,11 +14,11 @@ We highly recommend that you take a few dedicated minutes to read this README in
 
 # Introduction
 
-Imagine you work for a company that has a webserver running. It is highly important to the companies success that the webserver is highly available to ensure users have a great experience. Unfortunately, the company currently does not have data about the availability of the webserver. To fix this, they have tasked an engineer to build a pipeline that processes the logs of the webserver and stores the results in a database. Data scientists can then query the database to analyze the availability of the system. The engineer came up with the following solution:
+Imagine you work for a company that has a web server running. It's highly important to the company's success that the web server is highly available to ensure a great user experience. Unfortunately, the company currently doesn't have data about the availability of the web server. To fix this, they have tasked an engineer to build a pipeline that processes the logs of the web server, and stores the results in a database. Data scientists can then query the database to analyze the availability of the system. The engineer came up with the following solution:
 - The logs are ingested into a RabbitMQ queue (for the purpose of this challenge, this is done via reading a given log file with a Python script - in reality, the logs would be sent straight from the webserver)
-- A python script reads the messages from the RabbitMQ queue, processes it and stores the results in a PostgreSQL database
+- A Python script reads the messages from the RabbitMQ queue, processes it, and stores the results in a PostgreSQL database
 - An application server built in Flask queries the database to calculate the percentage of GET requests that have failed
-- The application server can be accessed via an nginx webserver
+- The application server can be accessed via an nginx web server
 All of this is developed with the Docker Engine, and put together with Docker Compose.
 
 
