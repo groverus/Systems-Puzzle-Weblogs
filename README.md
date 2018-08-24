@@ -17,7 +17,7 @@ We highly recommend that you take a few dedicated minutes to read this README in
 Imagine you work for a company that has a web server running. It's highly important to the company's success that the web server is highly available to ensure a great user experience. Unfortunately, the company currently doesn't have data about the availability of the web server. To fix this, they have tasked an engineer to build a pipeline that processes the logs of the web server, and stores the results in a database. Data scientists can then query the database to analyze the availability of the system. The engineer came up with the following solution:
 - The logs are ingested into a RabbitMQ queue (for the purpose of this challenge, this is done via reading a given log file with a Python script - in reality, the logs would be sent straight from the webserver)
 - A Python script reads the messages from the RabbitMQ queue, processes it, and stores the results in a PostgreSQL database
-- An application server built in Flask queries the database to calculate the percentage of GET requests that have failed
+- An application server built in Flask queries the database to calculate the percentage of GET requests that were successful
 - The application server can be accessed via an nginx web server
 All of this is developed with the Docker Engine, and put together with Docker Compose.
 
@@ -45,14 +45,14 @@ A typical log entry looks like
 
 More details about the weblogs can be found [here.](http://ita.ee.lbl.gov/html/contrib/Calgary-HTTP.html)
 
-When processing these logs, we extract whether it was a GET request and we use the HTTP staus code to determine whether the request was succesful. Look at the [List of HTTP status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) for an overview over all status codes.
-For the purpose of this challenge, a request is considered succesful if it returns a status code of the form 2XX.
+When processing these logs, we extract whether it was a GET request and we use the HTTP staus code to determine whether the request was successful. Look at the [List of HTTP status codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) for an overview over all status codes.
+For the purpose of this challenge, a request is considered successful if it returns a status code of the form 2XX.
 # Assignments
 
 The challenge consists of the following parts:
 
-- **Correct the bugs to have the basic features working** - The weblogs should get processed, the results should be stored in the database and the webapp should display the rate of failed GET requests
-- **Extend the functionality:** The data scientists suspect that local GET requests behave differently than remote GET requests. To help them investigate their suspicion, modify the platform so that it determines and displayes the rate of failed GET requests for local and remote requests separately
+- **Correct the bugs to have the basic features working** - The weblogs should get processed, the results should be stored in the database and the webapp should display the rate of successful GET requests
+- **Extend the functionality:** The data scientists suspect that local GET requests behave differently than remote GET requests. To help them investigate their suspicion, modify the platform so that it determines and displayes the rate of successful GET requests for local and remote requests separately
 
 
 Once you've corrected the bugs and have the basic features working, commit the functional codebase to a new repo following the instructions below. As you debug the system, you should keep track of your thought process and what steps you took to solve the puzzle.
