@@ -3,6 +3,7 @@ import pika
 import json
 import os
 import time
+import sys
 from utils import parse_log, is_get_request
 
 #Connect  to RabbitMQ
@@ -28,7 +29,7 @@ channel.queue_declare(queue='log-analysis')
 
 # Read weblogs
 
-f = open('weblogs.log', 'r')
+f = open('weblogs.log', encoding='utf-8')
 
 while True:
     try:
@@ -42,7 +43,7 @@ while True:
             day, status, source = parse_log(msg)
 
             # Store in RabbitMQ
-            body = json.dumps({'day': str(day), 'status': status})
+            body = json.dumps({'day': str(day), 'status': status, 'source': str(source)})
             channel.basic_publish(exchange='',
                                   routing_key='log-analysis',
                                   body=body)
